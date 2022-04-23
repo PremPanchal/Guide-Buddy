@@ -32,6 +32,7 @@ public class DownloadUrl {
             }
 
             urlData=sb.toString();
+            Log.d("downloadUrl", urlData.toString());
             bufferedReader.close();
         } catch (Exception e){
 

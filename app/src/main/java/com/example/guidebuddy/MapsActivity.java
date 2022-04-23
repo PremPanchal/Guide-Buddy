@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 StringBuilder stringBuilder = new StringBuilder
                         ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
-                stringBuilder.append("&radius=1000");
+                stringBuilder.append("&radius=3000");
                 stringBuilder.append("&type=atm");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
@@ -87,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
-                stringBuilder.append("&radius=1000");
+                stringBuilder.append("&radius=3000");
                 stringBuilder.append("&type=hospital");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
@@ -107,8 +107,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
-                stringBuilder.append("&radius=1000");
-                stringBuilder.append("&type=restaurants");
+                stringBuilder.append("&radius=3000");
+                stringBuilder.append("&type=restaurant");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
 
@@ -128,8 +128,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 StringBuilder stringBuilder = new StringBuilder
                         ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
-                stringBuilder.append("&radius=1000");
-                stringBuilder.append("&type=gas station");
+                stringBuilder.append("&radius=3000");
+                stringBuilder.append("&type=gas_station");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
 
@@ -146,9 +146,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
-                stringBuilder.append("&radius=1000");
+                stringBuilder.append("&radius=3000");
                 stringBuilder.append("&type=bank");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
