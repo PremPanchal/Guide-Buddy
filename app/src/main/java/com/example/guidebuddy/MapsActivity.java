@@ -150,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
                 stringBuilder.append("&radius=3000");
-                stringBuilder.append("&type=bank");
+                stringBuilder.append("&type=tourist_attraction");
                 stringBuilder.append("&sensor=true");
                 stringBuilder.append("&key=" + getResources().getString(R.string.google_maps_key));
 
