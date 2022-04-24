@@ -24,6 +24,7 @@ public class FetchData extends AsyncTask<Object, String, String> {
 
         try{
 
+
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = jsonObject.getJSONArray("results");
 
@@ -43,7 +44,6 @@ public class FetchData extends AsyncTask<Object, String, String> {
                 markerOptions.title(name);
                 markerOptions.position(latLng);
                 googleMap.addMarker(markerOptions);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
             }
 
