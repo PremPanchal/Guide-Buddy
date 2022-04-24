@@ -65,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         atm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMap.clear();
+                getCurrentLocation();
                 StringBuilder stringBuilder = new StringBuilder
                         ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
@@ -85,6 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hosp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMap.clear();
+                getCurrentLocation();
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
                 stringBuilder.append("&radius=3000");
@@ -105,6 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMap.clear();
+                getCurrentLocation();
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
                 stringBuilder.append("&radius=3000");
@@ -125,6 +131,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         gas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMap.clear();
+                getCurrentLocation();
                 StringBuilder stringBuilder = new StringBuilder
                         ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
@@ -146,7 +154,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mMap.clear();
+                getCurrentLocation();
                 StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                 stringBuilder.append("location=" + lat + "," + lng);
                 stringBuilder.append("&radius=3000");
