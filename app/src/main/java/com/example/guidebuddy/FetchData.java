@@ -43,7 +43,7 @@ public class FetchData extends AsyncTask<Object, String, String> {
                 markerOptions.title(name);
                 markerOptions.position(latLng);
                 googleMap.addMarker(markerOptions);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
             }
 
