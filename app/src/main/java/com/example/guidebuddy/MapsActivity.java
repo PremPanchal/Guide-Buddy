@@ -1,18 +1,22 @@
 package com.example.guidebuddy;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.guidebuddy.databinding.ActivityMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -25,9 +29,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.guidebuddy.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double lat, lng;
 
     ImageButton bank, res, hosp, gas, atm;
+    TextView cityName;
 
 
     @Override
@@ -52,6 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         res = findViewById(R.id.restaurant);
         hosp = findViewById(R.id.hospital);
         gas = findViewById(R.id.gas);
+        cityName = findViewById(R.id.city);
 
 
 
@@ -192,6 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void getCurrentLocation(){
+
         if(ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission
@@ -222,8 +232,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if(location!=null){
                         Toast.makeText(getApplicationContext(), "Current Location is: " +location.getLatitude() +" , "+location.getLongitude()
                         ,Toast.LENGTH_LONG).show();
+
                     }
                 }
+
             }
         };
 
@@ -242,12 +254,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    cityName.setText("Current City is: "+city());
                 }
 
             }
         });
 
 
+    }
+
+    public String city(){
+
+        String name = null;
+        //Will: trying to get city name to show up
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(lat, lng, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses.size() > 0) {
+            name = addresses.get(0).getLocality();
+        }
+        return name;
     }
 
     @SuppressLint("MissingSuperCall")
