@@ -266,6 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public String city(){
 
         String name = null;
+        String state = null;
         //Will: trying to get city name to show up
         Geocoder gcd = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = null;
@@ -276,8 +277,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         if (addresses.size() > 0) {
             name = addresses.get(0).getLocality();
+            state = addresses.get(0).getAdminArea();
         }
-        return name;
+        return name + ", " + state;
     }
 
     @SuppressLint("MissingSuperCall")
