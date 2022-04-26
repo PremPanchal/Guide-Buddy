@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int Request_code = 101;
     private double lat, lng;
 
-    ImageButton bank, res, hosp, gas, atm;
+    ImageButton poi, res, hosp, gas, atm;
     Button link;
     TextView cityName;
 
@@ -60,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         atm = findViewById(R.id.atm);
-        bank = findViewById(R.id.bank);
+        poi = findViewById(R.id.POI);
         res = findViewById(R.id.restaurant);
         hosp = findViewById(R.id.hospital);
         gas = findViewById(R.id.gas);
@@ -165,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        bank.setOnClickListener(new View.OnClickListener() {
+        poi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMap.clear();
@@ -190,10 +190,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String city = city();
+                String state = state();
+
+                // Formatting the names to work with the link
+                city.replaceAll(" ", "");
+                state.replaceAll(" ", "");
+
+                // Button that takes user to the wiki page
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://en.wikipedia.org/wiki/Bay_City,_Texas"));
+                intent.setData(Uri.parse("https://en.wikipedia.org/wiki/" + city + ",_" + state));
                 startActivity(intent);
             }
         });
@@ -269,7 +277,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                    cityName.setText("Current City is: "+city()+", "+state());
+                    cityName.setText("You are in: "+city()+", "+state());
                 }
 
             }
