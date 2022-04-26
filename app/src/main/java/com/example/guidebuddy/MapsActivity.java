@@ -2,12 +2,15 @@ package com.example.guidebuddy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double lat, lng;
 
     ImageButton bank, res, hosp, gas, atm;
+    Button link;
     TextView cityName;
 
 
@@ -61,7 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hosp = findViewById(R.id.hospital);
         gas = findViewById(R.id.gas);
         cityName = findViewById(R.id.city);
-
+        link = findViewById(R.id.link);
 
 
         fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(this.getApplicationContext());
@@ -182,6 +186,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 fetchData.execute(dataFetch);
             }
         });
+
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://en.wikipedia.org/wiki/Bay_City,_Texas"));
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -254,7 +269,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                    cityName.setText("Current City is: "+city());
+                    cityName.setText("Current City is: "+city()+", "+state());
                 }
 
             }
@@ -279,7 +294,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             name = addresses.get(0).getLocality();
             state = addresses.get(0).getAdminArea();
         }
-        return name + ", " + state;
+        return name;
+    }
+    public String state(){
+
+        String state = null;
+        //Will: trying to get city name to show up
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(lat, lng, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses.size() > 0) {
+            state = addresses.get(0).getAdminArea();
+        }
+        return  state;
     }
 
     @SuppressLint("MissingSuperCall")
