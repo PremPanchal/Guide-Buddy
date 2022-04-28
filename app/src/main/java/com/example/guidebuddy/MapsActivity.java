@@ -61,8 +61,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int Request_code = 101;
+    // Variables to hold latitude and longitude
     private double lat, lng;
-
+    // Declaring all the different buttons and view
     ImageButton poi, res, hosp, gas, atm;
     Button link;
     TextView cityName;
@@ -265,8 +266,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGoogleApiClient.connect();
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Function that get the current location
+    // No arguments, no returns
+    ////////////////////////////////////////////////////////////////////////////
     private void getCurrentLocation(){
 
+        // Checks permission and asks for permission
         if(ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission
@@ -276,6 +282,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     (this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION},Request_code);
             return;
         }
+
 
         LocationRequest locationRequest= LocationRequest.create();
         locationRequest.setInterval(60000);
@@ -329,31 +336,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Function to get the name of the city using latitude and longitude and the
+    // Geocoder class by passing the latitude and longitude
+    // No arguments. Returns a string
+    ////////////////////////////////////////////////////////////////////////////
     public String city(){
-
-        String name = null;
-        String state = null;
-        //Will: trying to get city name to show up
+        // String to hold the name of the city
+        String city = null;
+        //Calling class Geocoder, has functions to get locations details
+        // using latitude and longitude
         Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        // Makes an addresses array that Geocoder class and fill
         List<Address> addresses = null;
         try {
+            // Gets the city name and puts it in addresses
             addresses = gcd.getFromLocation(lat, lng, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // If addresses has something, get the name of the city
         if (addresses.size() > 0) {
-            name = addresses.get(0).getLocality();
-            state = addresses.get(0).getAdminArea();
+            city = addresses.get(0).getLocality();
         }
-        return name;
+        // Returns the name of the city
+        return city;
     }
-    public String state(){
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Function to get the State name using latitude and longitude and the Geocoder
+    // class by passing teh latitude and longitude
+    // No arguments. Returns a string
+    ////////////////////////////////////////////////////////////////////////////
+    public String state(){
+        // String to hold the name of the State
         String state = null;
-        //Will: trying to get city name to show up
+        //Calling class Geocoder, has functions to get locations details
+        // using latitude and longitude
         Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        // Makes an addresses array that Geocoder class and fill
         List<Address> addresses = null;
         try {
+            // Gets the State name and puts it in addresses
             addresses = gcd.getFromLocation(lat, lng, 1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -361,6 +385,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (addresses.size() > 0) {
             state = addresses.get(0).getAdminArea();
         }
+        // Returns the name of the state
         return  state;
     }
 
