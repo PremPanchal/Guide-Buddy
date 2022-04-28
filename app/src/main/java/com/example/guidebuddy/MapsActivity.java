@@ -293,10 +293,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return;
                 }
 
+
                 for(Location location:locationResult.getLocations()){
                     if(location!=null){
-                        Toast.makeText(getApplicationContext(), "Current Location is: " +location.getLatitude() +" , "+location.getLongitude()
-                        ,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Current Location is: " +location.getLatitude() +" , "+location.getLongitude()
+                       // ,Toast.LENGTH_LONG).show();
 
                     }
                 }
